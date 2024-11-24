@@ -5,6 +5,7 @@ import Header from "./templates/Header";
 import axios from "../utils/axios";
 import HorizontalCards from "./templates/HorizontalCards";
 import Dropdown from "./templates/Dropdown";
+import Loading from "./Loading";
 
 const Home=()=>{
     document.title="SCSDB | Home";
@@ -53,7 +54,7 @@ const Home=()=>{
                 <HorizontalCards data={trending}/>
             </div>
         </>
-    ):<h1 className="text-5xl text-white font-semibold p-10">Loading....</h1>
+    ):<Loading/>
 }
 
 export default Home;
