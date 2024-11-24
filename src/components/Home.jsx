@@ -3,10 +3,12 @@ import SideNav from "./templates/SideNav";
 import TopNav from "./templates/TopNav";
 import Header from "./templates/Header";
 import axios from "../utils/axios";
+import HorizontalCards from "./templates/HorizontalCards";
 
 const Home=()=>{
     document.title="SCSDB | Home";
-    const [wallpaper,setWallpaper]=useState(null)
+    const [wallpaper,setWallpaper]=useState(null);
+    const [trending,setTrending]=useState(null);
 
 
     const GetHeaderWallpaper=async()=>{
@@ -19,20 +21,31 @@ const Home=()=>{
         }
     }
 
+    const GetTrending=async()=>{
+        try {
+            const {data}=await axios.get(`/trending/all/day`);
+            setTrending(data.results);
+        } catch (error) {
+            console.log("Error: " + error)
+        }
+    }
+
     useEffect(()=>{
         !wallpaper && GetHeaderWallpaper();
+        !trending && GetTrending();
     },[])
+    console.log(trending);
 
-
-    return wallpaper ? (
+    return wallpaper && trending ? (
         <>
             <SideNav/>
-            <div className="w-[80%] h-full">
+            <div className="w-[80%] h-full overflow-auto overflow-x-hidden">
                 <TopNav/>
                 <Header data={wallpaper}/>
+                <HorizontalCards data={trending}/>
             </div>
         </>
-    ):<h1>Loading</h1>
+    ):<h1 className="text-5xl text-white font-semibold p-10">Loading....</h1>
 }
 
 export default Home;
