@@ -13,13 +13,19 @@ const Trending=() =>{
     const [duration,setDuration]=useState('day')
     const [trending,setTrending]=useState([])
     const [page,setPage]=useState(1)
+    const [hasMore,setHasMore]=useState(true)
 
     const GetTrending=async()=>{
         try {
-            const {data}=await axios.get(`/trending/${category}/${duration}`);
+            const {data}=await axios.get(`/trending/${category}/${duration}?page=${page}`);
             //setTrending(data.results);
-            setTrending((prevResult)=>[...prevResult,...data.results])
-            setPage(page+1)
+
+            if(data.results.length > 0){
+                setPage(page+1)
+                setTrending((prevResult)=>[...prevResult,...data.results])
+            }else{
+                setHasMore(false);
+            }
             console.log(data)
         } catch (error) {
             console.log("Error: " + error)
@@ -27,12 +33,18 @@ const Trending=() =>{
     }
 
     useEffect(()=>{
-        GetTrending();
+       refresherhandler();
     },[category,duration])
 
 
-    const refresherhandler=() => {
-
+    const refresherhandler=async() => {
+        if(trending.length === 0){
+            GetTrending();
+        }else{
+            setPage(1);
+            setTrending([]);
+            GetTrending();
+        }
     }
 
     return trending.length > 0 ? (
