@@ -8,11 +8,11 @@ const Dropdown=({title,option,funct})=>{
                 <option value="0" disabled>
                     {title}
                 </option>
-                {option.map((option,index)=>(
-                    <option key={index} value={option}>
-                        {option.toUpperCase()}
+                {option.map((o,index)=>(
+                    <option key={index} value={o}>
+                        {o.toUpperCase()}
                     </option>
-                ))}
+                ))} 
             </select>
         </div>
         </>
