@@ -39,11 +39,10 @@ const TopNav=() => {
             )}
             <div className="z-[100] absolute max-h-[50vh] w-[50%] bg-zinc-200 top-[100%] left-[5%] overflow-auto rounded">
                 {searches.map((search,index)=>(
-                    <Link key={index} className="hover:text-black duration-300 hover:bg-zinc-300 font-semibold text-zinc-600 w-[100%] p-10 flex justify-start items-center border-b-2 border-zinc-100">
-
+                <Link to={`/${search.media_type}/details/${search.id}`} key={index} className="hover:text-black duration-300 hover:bg-zinc-300 font-semibold text-zinc-600 w-[100%] p-10 flex justify-start items-center border-b-2 border-zinc-100">
                     <img src={search.backdrop_path || search.profile_path ? `https://image.tmdb.org/t/p/original/${search.backdrop_path || search.profile_path}` : noImage} className="h-[10vh] w-[10vh] object-cover rounded mr-5" alt="" />
                     <span>{search.name || search.title || search.original_name || search.original_title}</span> 
-                    </Link>
+                </Link> 
                 ))}
             </div>
         </div>
