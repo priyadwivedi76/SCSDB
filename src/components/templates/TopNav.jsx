@@ -37,7 +37,7 @@ const TopNav=() => {
                 onClick={()=>setquery("")}
                 className="text-3xl text-zinc-400 ri-close-large-line"></i>
             )}
-            <div className="absolute max-h-[50vh] w-[50%] bg-zinc-200 top-[100%] left-[5%] overflow-auto rounded">
+            <div className="z-[100] absolute max-h-[50vh] w-[50%] bg-zinc-200 top-[100%] left-[5%] overflow-auto rounded">
                 {searches.map((search,index)=>(
                     <Link key={index} className="hover:text-black duration-300 hover:bg-zinc-300 font-semibold text-zinc-600 w-[100%] p-10 flex justify-start items-center border-b-2 border-zinc-100">
 
