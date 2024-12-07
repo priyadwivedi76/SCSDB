@@ -27,7 +27,6 @@ const Movies=() => {
             }else{
                 setHasMore(false);
             }
-            console.log(data)
         } catch (error) {
             console.log("Error: " + error)
         }
@@ -68,7 +67,7 @@ const Movies=() => {
                 hasMore={true}
                 loader={<h1 className="text-white text-xl font-semibold bg-black h-[10vh] text-center pt-5">Loading</h1>}
             >
-                <Cards data={people} title={category}/>
+                <Cards data={people} title="person"/>
             </InfiniteScroll>
         </div>
         </>

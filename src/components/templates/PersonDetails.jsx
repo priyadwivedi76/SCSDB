@@ -1,6 +1,6 @@
 import React from "react";
 
-const PersonDetail=() =>{
+const PersonDetails=() =>{
     return(
         <>
         <h1>Person Detail</h1>
@@ -8,4 +8,4 @@ const PersonDetail=() =>{
     )
 }
 
-export default PersonDetail;
+export default PersonDetails;

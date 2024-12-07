@@ -1,11 +1,11 @@
 import React from "react";
 
-const MovieDetail=() =>{
+const MovieDetails=() =>{
     return(
         <>
-        <h1>Movie Detail</h1>
+        <h1 className="text-white">Movie Detail</h1>
         </>
     )
 }
 
-export default MovieDetail;
+export default MovieDetails;
