@@ -36,6 +36,34 @@ const MovieDetails=() =>{
                     imdb
                 </a>
             </nav>
+
+            <div className='w-full flex'>
+                <img className="h-[45vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,0.5)]" src={`https://image.tmdb.org/t/p/original/${info.detail.poster_path||info.detail.backdrop_path}`} alt="" />
+            </div>
+
+            <div className="w-[80%] flex flex-col gap-y-10">
+                    {info.watchProvider && info.watchProvider.flatrate && 
+                    <div className="flex items-center gap-x-10">
+                        <h1 className="font-semibold text-md text-white">Available on Platform:</h1>
+                        {info.watchProvider.flatrate.map((data,index) => 
+                            ((<img title={data.provider_name} className="w-[5vh] h-[5vh] object-cover rounded-md m-1" key={index} src={`https://image.tmdb.org/t/p/original/${data.logo_path}`}/>)))}
+                    </div>}
+
+
+                    {info.watchProvider && info.watchProvider.rent && 
+                    <div className="flex items-center gap-x-10"> 
+                        <h1 className="font-semibold text-md text-white">Available on Rent:</h1>
+                        {info.watchProvider.rent.map((data,index) => 
+                            ((<img title={data.provider_name} className="w-[5vh] h-[5vh] object-cover rounded-md m-1" key={index} src={`https://image.tmdb.org/t/p/original/${data.logo_path}`}/>)))}
+                    </div>}
+
+                    {info.watchProvider && info.watchProvider.buy && 
+                    <div className="flex items-center gap-x-10">
+                        <h1 className="font-semibold text-md text-white">Available on Buy:</h1>
+                        {info.watchProvider.buy.map((data,index) => 
+                            ((<img title={data.provider_name} className="w-[5vh] h-[5vh] object-cover rounded-md m-1" key={index} src={`https://image.tmdb.org/t/p/original/${data.logo_path}`}/>)))}
+                    </div>}
+            </div>
         </div>
         </>
     ):<Loading/>
