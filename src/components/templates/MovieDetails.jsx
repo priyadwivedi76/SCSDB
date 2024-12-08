@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { asyncloadMovie } from "../../store/actions/movieAction";
 import {removemovie} from "../../store/actions/movieAction";
-import { Link } from "react-router-dom";
+import { Link,Outlet } from "react-router-dom";
 import Loading from "../../components/Loading"
 import { useLocation } from "react-router-dom";
 import HorizontalCards from '../../components/templates/HorizontalCards'
+
 
 
 const MovieDetails=() =>{
@@ -21,7 +22,7 @@ const MovieDetails=() =>{
         return ()=>{
             dispatch(removemovie())
         }
-    },[])
+    },[id])
 
     return info ? (
         <>
@@ -29,7 +30,7 @@ const MovieDetails=() =>{
             background:`linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5),rgba(0,0,0,0.7)),url(https://image.tmdb.org/t/p/original/${info.detail.backdrop_path})`,
             backgroundPosition:`center`,
             backgroundSize:`cover`
-        }} className="w-screen h-[130vh] px-[10%]">
+        }} className="relative w-screen min-h-[150vh] px-[10%]">
             <nav className="h-[10vh] w-full text-zinc-200 flex gap-10 items-center text-2xl">
                 <Link onClick={()=>navigate(-1)} className="hover:text-[#6556CD] ri-arrow-left-line"></Link>
                 <a target="_blank" href={`https://en.wikipedia.org/wiki/${info.externalId.wikidata_id}`}>
@@ -96,8 +97,11 @@ const MovieDetails=() =>{
                             ((<img title={data.provider_name} className="w-[5vh] h-[5vh] object-cover rounded-md m-1" key={index} src={`https://image.tmdb.org/t/p/original/${data.logo_path}`}/>)))}
                     </div>}
             </div>
-            <div className="h-[50vh] mt-10">
+            <div className="h-[50vh]">
+                <hr className='mt-10 mb-5 border-none h-[2px] bg-zinc-500'/>
+                <h1 className="font-semibold text-2xl text-white">Recommendations:</h1>
                 <HorizontalCards data={info.recommendation.length>0 ? info.recommendation : info.similarity }/>
+                    <Outlet/>
             </div>
         </div>
         </>
