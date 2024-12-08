@@ -9,6 +9,7 @@ const MovieDetails=() =>{
     const navigate=useNavigate()
     const {id}=useParams();
     const {info}=useSelector(state=>state.movie)
+    console.log(info)
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(asyncloadMovie(id))
@@ -39,6 +40,24 @@ const MovieDetails=() =>{
 
             <div className='w-full flex'>
                 <img className="h-[45vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,0.5)]" src={`https://image.tmdb.org/t/p/original/${info.detail.poster_path||info.detail.backdrop_path}`} alt="" />
+                <div className="content ml-[5%]">
+                    <h1 className="text-4xl font-bold text-white">{info.detail.name || info.detail.title || info.detail.original_name || info.detail.original_title}
+                        <small className="text-2xl text-zinc-400">({info.detail.release_date.split('-')[0]})</small>
+                    </h1>
+
+                    <div className="mt-3 mb-10 flex text-white gap-y-5 gap-x-5 items-center">
+                        {info.detail.vote_average && (<div className="h-[7vh] w-[7vh] font-semibold text-xl rounded-full bg-yellow-700 text-white flex items-center justify-center">{(info.detail.vote_average*10).toFixed()} <sup>%</sup></div>)}
+                        <h1 className="font-semibold text-xl">User Details</h1>
+                        <h1>{info.detail.release_date}</h1>
+                        <h1>{info.detail.genres.map(g => g.name).join(",")}</h1>
+                        <h1>{info.detail.runtime}mins</h1>
+                    </div>
+
+                    <h1 className="text-xl font-semibold italic text-zinc-200">{info.detail.tagline}</h1>
+
+                    <h1 className='text-2xl text-white mt-3 mb-2'>Overview</h1>
+                    <p className="text-white">{info.detail.overview}</p>
+                </div>
             </div>
 
             <div className="w-[80%] flex flex-col gap-y-10">
