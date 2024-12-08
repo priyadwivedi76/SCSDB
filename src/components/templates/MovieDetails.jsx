@@ -5,7 +5,12 @@ import { asyncloadMovie } from "../../store/actions/movieAction";
 import {removemovie} from "../../store/actions/movieAction";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading"
+import { useLocation } from "react-router-dom";
+import HorizontalCards from '../../components/templates/HorizontalCards'
+
+
 const MovieDetails=() =>{
+    const {pathname}=useLocation();
     const navigate=useNavigate()
     const {id}=useParams();
     const {info}=useSelector(state=>state.movie)
@@ -24,7 +29,7 @@ const MovieDetails=() =>{
             background:`linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.5),rgba(0,0,0,0.7)),url(https://image.tmdb.org/t/p/original/${info.detail.backdrop_path})`,
             backgroundPosition:`center`,
             backgroundSize:`cover`
-        }} className="w-screen h-screen px-[10%]">
+        }} className="w-screen h-[130vh] px-[10%]">
             <nav className="h-[10vh] w-full text-zinc-200 flex gap-10 items-center text-2xl">
                 <Link onClick={()=>navigate(-1)} className="hover:text-[#6556CD] ri-arrow-left-line"></Link>
                 <a target="_blank" href={`https://en.wikipedia.org/wiki/${info.externalId.wikidata_id}`}>
@@ -39,7 +44,8 @@ const MovieDetails=() =>{
             </nav>
 
             <div className='w-full flex'>
-                <img className="h-[45vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,0.5)]" src={`https://image.tmdb.org/t/p/original/${info.detail.poster_path||info.detail.backdrop_path}`} alt="" />
+                <img className="h-[50vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,0.5)]" src={`https://image.tmdb.org/t/p/original/${info.detail.poster_path||info.detail.backdrop_path}`} alt="" />
+
                 <div className="content ml-[5%]">
                     <h1 className="text-4xl font-bold text-white">{info.detail.name || info.detail.title || info.detail.original_name || info.detail.original_title}
                         <small className="text-2xl text-zinc-400">({info.detail.release_date.split('-')[0]})</small>
@@ -57,6 +63,13 @@ const MovieDetails=() =>{
 
                     <h1 className='text-2xl text-white mt-3 mb-2'>Overview</h1>
                     <p className="text-white">{info.detail.overview}</p>
+
+                    <h1 className='text-2xl text-white mt-3 mb-2'>Available Translation:</h1>
+                    <p className="text-white mb-5">{info.translations.join(", ")}</p>
+
+                    <Link className="text-white bg-[#6556CD] px-5 py-3 rounded-lg"  to={`${pathname}/trailer`}>
+                    <i className="text-xl ri-play-fill mr-2"></i>
+                    Play Trailer</Link>
                 </div>
             </div>
 
@@ -82,6 +95,9 @@ const MovieDetails=() =>{
                         {info.watchProvider.buy.map((data,index) => 
                             ((<img title={data.provider_name} className="w-[5vh] h-[5vh] object-cover rounded-md m-1" key={index} src={`https://image.tmdb.org/t/p/original/${data.logo_path}`}/>)))}
                     </div>}
+            </div>
+            <div className="h-[50vh] mt-10">
+                <HorizontalCards data={info.recommendation.length>0 ? info.recommendation : info.similarity }/>
             </div>
         </div>
         </>
