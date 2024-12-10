@@ -33,9 +33,6 @@ const TvDetails=() =>{
         }} className="relative w-screen min-h-[200vh] px-[10%]">
             <nav className="h-[10vh] w-full text-zinc-200 flex gap-10 items-center text-2xl">
                 <Link onClick={()=>navigate(-1)} className="hover:text-[#6556CD] ri-arrow-left-line"></Link>
-                <a target="_blank" href={`https://en.wikipedia.org/wiki/${info.externalId.wikidata_id}`}>
-                    <i className="ri-earth-fill"></i>
-                </a>
                 <a target="_blank" href={info.detail.homepage}>
                     <i className="ri-home-4-line"></i>
                 </a>
